@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club.deepblue.twilight.mapper.LikesMapper">
+  <resultMap id="BaseResultMap" type="club.deepblue.twilight.pojo.Likes">
+    <id column="t_id" jdbcType="INTEGER" property="t_id" />
+    <id column="u_id" jdbcType="INTEGER" property="u_id" />
+    <result column="likes_time" jdbcType="TIMESTAMP" property="likes_time" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    t_id, u_id, likes_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="club.deepblue.twilight.pojo.LikesKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from likes
+    where t_id = #{t_id,jdbcType=INTEGER}
+      and u_id = #{u_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="club.deepblue.twilight.pojo.LikesKey">
+    delete from likes
+    where t_id = #{t_id,jdbcType=INTEGER}
+      and u_id = #{u_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="club.deepblue.twilight.pojo.Likes">
+    insert into likes (t_id, u_id, likes_time
+      )
+    values (#{t_id,jdbcType=INTEGER}, #{u_id,jdbcType=INTEGER}, #{likes_time,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="club.deepblue.twilight.pojo.Likes">
+    insert into likes
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="t_id != null">
+        t_id,
+      </if>
+      <if test="u_id != null">
+        u_id,
+      </if>
+      <if test="likes_time != null">
+        likes_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="t_id != null">
+        #{t_id,jdbcType=INTEGER},
+      </if>
+      <if test="u_id != null">
+        #{u_id,jdbcType=INTEGER},
+      </if>
+      <if test="likes_time != null">
+        #{likes_time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="club.deepblue.twilight.pojo.Likes">
+    update likes
+    <set>
+      <if test="likes_time != null">
+        likes_time = #{likes_time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where t_id = #{t_id,jdbcType=INTEGER}
+      and u_id = #{u_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="club.deepblue.twilight.pojo.Likes">
+    update likes
+    set likes_time = #{likes_time,jdbcType=TIMESTAMP}
+    where t_id = #{t_id,jdbcType=INTEGER}
+      and u_id = #{u_id,jdbcType=INTEGER}
+  </update>
+</mapper>

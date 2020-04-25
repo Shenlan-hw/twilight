@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club.deepblue.twilight.mapper.MessageMapper">
+  <resultMap id="BaseResultMap" type="club.deepblue.twilight.pojo.Message">
+    <id column="me_id" jdbcType="INTEGER" property="me_id" />
+    <result column="u_id" jdbcType="INTEGER" property="u_id" />
+    <result column="re_u_id" jdbcType="INTEGER" property="re_u_id" />
+    <result column="me_time" jdbcType="TIMESTAMP" property="me_time" />
+    <result column="is_delivered" jdbcType="TINYINT" property="is_delivered" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="club.deepblue.twilight.pojo.Message">
+    <result column="me_content" jdbcType="LONGVARCHAR" property="me_content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    me_id, u_id, re_u_id, me_time, is_delivered
+  </sql>
+  <sql id="Blob_Column_List">
+    me_content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from message
+    where me_id = #{me_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from message
+    where me_id = #{me_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="club.deepblue.twilight.pojo.Message">
+    insert into message (me_id, u_id, re_u_id,
+      me_time, is_delivered, me_content
+      )
+    values (#{me_id,jdbcType=INTEGER}, #{u_id,jdbcType=INTEGER}, #{re_u_id,jdbcType=INTEGER},
+      #{me_time,jdbcType=TIMESTAMP}, #{is_delivered,jdbcType=TINYINT}, #{me_content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="club.deepblue.twilight.pojo.Message">
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="me_id != null">
+        me_id,
+      </if>
+      <if test="u_id != null">
+        u_id,
+      </if>
+      <if test="re_u_id != null">
+        re_u_id,
+      </if>
+      <if test="me_time != null">
+        me_time,
+      </if>
+      <if test="is_delivered != null">
+        is_delivered,
+      </if>
+      <if test="me_content != null">
+        me_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="me_id != null">
+        #{me_id,jdbcType=INTEGER},
+      </if>
+      <if test="u_id != null">
+        #{u_id,jdbcType=INTEGER},
+      </if>
+      <if test="re_u_id != null">
+        #{re_u_id,jdbcType=INTEGER},
+      </if>
+      <if test="me_time != null">
+        #{me_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="is_delivered != null">
+        #{is_delivered,jdbcType=TINYINT},
+      </if>
+      <if test="me_content != null">
+        #{me_content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="club.deepblue.twilight.pojo.Message">
+    update message
+    <set>
+      <if test="u_id != null">
+        u_id = #{u_id,jdbcType=INTEGER},
+      </if>
+      <if test="re_u_id != null">
+        re_u_id = #{re_u_id,jdbcType=INTEGER},
+      </if>
+      <if test="me_time != null">
+        me_time = #{me_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="is_delivered != null">
+        is_delivered = #{is_delivered,jdbcType=TINYINT},
+      </if>
+      <if test="me_content != null">
+        me_content = #{me_content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where me_id = #{me_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="club.deepblue.twilight.pojo.Message">
+    update message
+    set u_id = #{u_id,jdbcType=INTEGER},
+      re_u_id = #{re_u_id,jdbcType=INTEGER},
+      me_time = #{me_time,jdbcType=TIMESTAMP},
+      is_delivered = #{is_delivered,jdbcType=TINYINT},
+      me_content = #{me_content,jdbcType=LONGVARCHAR}
+    where me_id = #{me_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="club.deepblue.twilight.pojo.Message">
+    update message
+    set u_id = #{u_id,jdbcType=INTEGER},
+      re_u_id = #{re_u_id,jdbcType=INTEGER},
+      me_time = #{me_time,jdbcType=TIMESTAMP},
+      is_delivered = #{is_delivered,jdbcType=TINYINT}
+    where me_id = #{me_id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByUIDAndReUID" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from message
+    where u_id = #{u_id,jdbcType=INTEGER} and re_u_id = #{re_u_id,jdbcType=INTEGER}
+  </select>
+</mapper>

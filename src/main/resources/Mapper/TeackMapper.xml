@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club.deepblue.twilight.mapper.TeackMapper">
+  <resultMap id="BaseResultMap" type="club.deepblue.twilight.pojo.Teack">
+    <id column="t_id" jdbcType="INTEGER" property="t_id" />
+    <result column="u_id" jdbcType="INTEGER" property="u_id" />
+    <result column="v_id" jdbcType="INTEGER" property="v_id" />
+    <result column="t_time" jdbcType="TIMESTAMP" property="t_time" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="club.deepblue.twilight.pojo.Teack">
+    <result column="t_content" jdbcType="LONGVARCHAR" property="t_content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    t_id, u_id, v_id, t_time
+  </sql>
+  <sql id="Blob_Column_List">
+    t_content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from teack
+    where t_id = #{t_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from teack
+    where t_id = #{t_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="club.deepblue.twilight.pojo.Teack">
+    insert into teack (t_id, u_id, v_id, 
+      t_time, t_content)
+    values (#{t_id,jdbcType=INTEGER}, #{u_id,jdbcType=INTEGER}, #{v_id,jdbcType=INTEGER}, 
+      #{t_time,jdbcType=TIMESTAMP}, #{t_content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="club.deepblue.twilight.pojo.Teack">
+    insert into teack
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="t_id != null">
+        t_id,
+      </if>
+      <if test="u_id != null">
+        u_id,
+      </if>
+      <if test="v_id != null">
+        v_id,
+      </if>
+      <if test="t_time != null">
+        t_time,
+      </if>
+      <if test="t_content != null">
+        t_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="t_id != null">
+        #{t_id,jdbcType=INTEGER},
+      </if>
+      <if test="u_id != null">
+        #{u_id,jdbcType=INTEGER},
+      </if>
+      <if test="v_id != null">
+        #{v_id,jdbcType=INTEGER},
+      </if>
+      <if test="t_time != null">
+        #{t_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="t_content != null">
+        #{t_content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="club.deepblue.twilight.pojo.Teack">
+    update teack
+    <set>
+      <if test="u_id != null">
+        u_id = #{u_id,jdbcType=INTEGER},
+      </if>
+      <if test="v_id != null">
+        v_id = #{v_id,jdbcType=INTEGER},
+      </if>
+      <if test="t_time != null">
+        t_time = #{t_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="t_content != null">
+        t_content = #{t_content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where t_id = #{t_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="club.deepblue.twilight.pojo.Teack">
+    update teack
+    set u_id = #{u_id,jdbcType=INTEGER},
+      v_id = #{v_id,jdbcType=INTEGER},
+      t_time = #{t_time,jdbcType=TIMESTAMP},
+      t_content = #{t_content,jdbcType=LONGVARCHAR}
+    where t_id = #{t_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="club.deepblue.twilight.pojo.Teack">
+    update teack
+    set u_id = #{u_id,jdbcType=INTEGER},
+      v_id = #{v_id,jdbcType=INTEGER},
+      t_time = #{t_time,jdbcType=TIMESTAMP}
+    where t_id = #{t_id,jdbcType=INTEGER}
+  </update>
+</mapper>

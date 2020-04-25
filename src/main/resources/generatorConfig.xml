@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+<classPathEntry location="/Users/takaibun/.m2/repository/mysql/mysql-connector-java/8.0.19/mysql-connector-java-8.0.19.jar" />
+
+<context id="DB2Tables" targetRuntime="MyBatis3">
+
+  <!-- 生成的 Java 文件的编码 -->
+  <property name="javaFileEncoding" value="UTF-8"/>
+  <!-- 格式化 Java 代码 -->
+  <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+  <!-- 格式化 XML 代码 -->
+  <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+  <commentGenerator>
+    <property name="suppressDate" value="true"/>
+    <property name="suppressAllComments" value="true"/>
+  </commentGenerator>
+  <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                  connectionURL="jdbc:mysql://localhost:3306/twilightdb?charset=utf8mb4&amp;useSSL=false&amp;allowPublicKeyRetrieval=true"
+                  userId="twilight"
+                  password="twilight">
+  </jdbcConnection>
+
+  <javaTypeResolver >
+    <property name="forceBigDecimals" value="false" />
+  </javaTypeResolver>
+
+  <!-- javaModelGenerator：指定javaBean的生成策略
+      targetPackage="test.model"：目标包名
+      targetProject="\MBGTestProject\src"：目标工程
+   -->
+  <javaModelGenerator targetPackage="club.deepblue.twilight.pojo" targetProject="src/main/java">
+    <!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+    <property name="enableSubPackages" value="true" />
+    <!-- 是否针对string类型的字段在set的时候进行trim调用 -->
+    <property name="trimStrings" value="true" />
+  </javaModelGenerator>
+
+  <!-- 生成的SQLMapper映射文件包名和位置 -->
+  <sqlMapGenerator targetPackage="Mapper"  targetProject="src/main/resources">
+    <!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+    <property name="enableSubPackages" value="true" />
+  </sqlMapGenerator>
+
+  <!-- javaClientGenerator:指定mapper接口所在的位置 -->
+  <javaClientGenerator type="XMLMAPPER" targetPackage="club.deepblue.twilight.mapper"  targetProject="src/main/java">
+    <!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+    <property name="enableSubPackages" value="true" />
+  </javaClientGenerator>
+
+  <!-- 指定要逆向分析哪些表：根据表要创建javaBean -->
+  <!--<table schema="DB2ADMIN" tableName="ALLTYPES" domainObjectName="Customer" >
+    <property name="useActualColumnNames" value="true"/>
+    <generatedKey column="ID" sqlStatement="DB2" identity="true" />
+    <columnOverride column="DATE_FIELD" property="startDate" />
+    <ignoreColumn column="FRED" />
+    <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+  </table> -->
+  <table schema="twilight" tableName="user_info" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+         enableSelectByExample="false" selectByExampleQueryId="false">
+    <property name="useActualColumnNames" value="true"/>
+    <generatedKey column="u_id" sqlStatement="MySQL" identity="true" />
+  </table>
+  <table schema="twilight" tableName="video" domainObjectName="Video" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+         enableSelectByExample="false" selectByExampleQueryId="false" >
+    <property name="useActualColumnNames" value="true"/>
+    <generatedKey column="v_id" sqlStatement="MySQL" identity="true" />
+  </table>
+  <table schema="twilight" tableName="playlist" domainObjectName="PlayList" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+         enableSelectByExample="false" selectByExampleQueryId="false">
+    <property name="useActualColumnNames" value="true"/>
+    <generatedKey column="pl_id" sqlStatement="MySQL" identity="true" />
+  </table>
+  <table schema="twilight" tableName="cinema" domainObjectName="Cinema" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+         enableSelectByExample="false" selectByExampleQueryId="false">
+    <property name="useActualColumnNames" value="true"/>
+    <generatedKey column="ci_id" sqlStatement="MySQL" identity="true" />
+  </table>
+  <table schema="twilight" tableName="member" domainObjectName="Member" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+         enableSelectByExample="false" selectByExampleQueryId="false">
+    <property name="useActualColumnNames" value="true"/>
+    <generatedKey column="ml_id" sqlStatement="MySQL" identity="true" />
+  </table>
+  <table schema="twilight" tableName="feeling" domainObjectName="Feeling" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+         enableSelectByExample="false" selectByExampleQueryId="false">
+    <property name="useActualColumnNames" value="true"/>
+    <generatedKey column="f_id" sqlStatement="MySQL" identity="true" />
+  </table>
+  <table schema="twilight" tableName="teack" domainObjectName="Teack" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+         enableSelectByExample="false" selectByExampleQueryId="false">
+    <property name="useActualColumnNames" value="true"/>
+    <generatedKey column="f_id" sqlStatement="MySQL" identity="true" />
+  </table>
+  <table schema="twilight" tableName="message" domainObjectName="Message" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+         enableSelectByExample="false" selectByExampleQueryId="false">
+    <property name="useActualColumnNames" value="true"/>
+    <generatedKey column="f_id" sqlStatement="MySQL" identity="true" />
+  </table>
+  <table schema="twilight" tableName="likes" domainObjectName="Likes" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+         enableSelectByExample="false" selectByExampleQueryId="false">
+    <property name="useActualColumnNames" value="true"/>
+    <generatedKey column="f_id" sqlStatement="MySQL" identity="true" />
+  </table>
+  <table schema="twilight" tableName="friendlist" domainObjectName="Friend" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+         enableSelectByExample="false" selectByExampleQueryId="false">
+    <property name="useActualColumnNames" value="true"/>
+    <generatedKey column="f_id" sqlStatement="MySQL" identity="true" />
+  </table>
+
+</context>
+
+</generatorConfiguration>

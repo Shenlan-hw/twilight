@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club.deepblue.twilight.mapper.CinemaMapper">
+  <resultMap id="BaseResultMap" type="club.deepblue.twilight.pojo.Cinema">
+    <id column="ci_id" jdbcType="INTEGER" property="ci_id" />
+    <result column="u_id" jdbcType="INTEGER" property="u_id" />
+    <result column="ci_type" jdbcType="TINYINT" property="ci_type" />
+    <result column="ci_number" jdbcType="TINYINT" property="ci_number" />
+    <result column="ci_created_time" jdbcType="TIMESTAMP" property="ci_created_time" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="club.deepblue.twilight.pojo.Cinema">
+    <result column="ci_notice" jdbcType="LONGVARCHAR" property="ci_notice" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ci_id, u_id, ci_type, ci_number, ci_created_time
+  </sql>
+  <sql id="Blob_Column_List">
+    ci_notice
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from cinema
+    where ci_id = #{ci_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cinema
+    where ci_id = #{ci_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="club.deepblue.twilight.pojo.Cinema">
+    <selectKey keyProperty="ci_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cinema (u_id, ci_type, ci_number, 
+      ci_created_time, ci_notice)
+    values (#{u_id,jdbcType=INTEGER}, #{ci_type,jdbcType=TINYINT}, #{ci_number,jdbcType=TINYINT}, 
+      #{ci_created_time,jdbcType=TIMESTAMP}, #{ci_notice,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="club.deepblue.twilight.pojo.Cinema">
+    <selectKey keyProperty="ci_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cinema
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="u_id != null">
+        u_id,
+      </if>
+      <if test="ci_type != null">
+        ci_type,
+      </if>
+      <if test="ci_number != null">
+        ci_number,
+      </if>
+      <if test="ci_created_time != null">
+        ci_created_time,
+      </if>
+      <if test="ci_notice != null">
+        ci_notice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="u_id != null">
+        #{u_id,jdbcType=INTEGER},
+      </if>
+      <if test="ci_type != null">
+        #{ci_type,jdbcType=TINYINT},
+      </if>
+      <if test="ci_number != null">
+        #{ci_number,jdbcType=TINYINT},
+      </if>
+      <if test="ci_created_time != null">
+        #{ci_created_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ci_notice != null">
+        #{ci_notice,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="club.deepblue.twilight.pojo.Cinema">
+    update cinema
+    <set>
+      <if test="u_id != null">
+        u_id = #{u_id,jdbcType=INTEGER},
+      </if>
+      <if test="ci_type != null">
+        ci_type = #{ci_type,jdbcType=TINYINT},
+      </if>
+      <if test="ci_number != null">
+        ci_number = #{ci_number,jdbcType=TINYINT},
+      </if>
+      <if test="ci_created_time != null">
+        ci_created_time = #{ci_created_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ci_notice != null">
+        ci_notice = #{ci_notice,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ci_id = #{ci_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="club.deepblue.twilight.pojo.Cinema">
+    update cinema
+    set u_id = #{u_id,jdbcType=INTEGER},
+      ci_type = #{ci_type,jdbcType=TINYINT},
+      ci_number = #{ci_number,jdbcType=TINYINT},
+      ci_created_time = #{ci_created_time,jdbcType=TIMESTAMP},
+      ci_notice = #{ci_notice,jdbcType=LONGVARCHAR}
+    where ci_id = #{ci_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="club.deepblue.twilight.pojo.Cinema">
+    update cinema
+    set u_id = #{u_id,jdbcType=INTEGER},
+      ci_type = #{ci_type,jdbcType=TINYINT},
+      ci_number = #{ci_number,jdbcType=TINYINT},
+      ci_created_time = #{ci_created_time,jdbcType=TIMESTAMP}
+    where ci_id = #{ci_id,jdbcType=INTEGER}
+  </update>
+</mapper>

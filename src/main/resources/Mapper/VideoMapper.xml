@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club.deepblue.twilight.mapper.VideoMapper">
+  <resultMap id="BaseResultMap" type="club.deepblue.twilight.pojo.Video">
+    <id column="v_id" jdbcType="INTEGER" property="v_id" />
+    <result column="v_name" jdbcType="VARCHAR" property="v_name" />
+    <result column="v_cover" jdbcType="CHAR" property="v_cover" />
+    <result column="v_url" jdbcType="VARCHAR" property="v_url" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="club.deepblue.twilight.pojo.Video">
+    <result column="v_about" jdbcType="LONGVARCHAR" property="v_about" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    v_id, v_name, v_cover, v_url
+  </sql>
+  <sql id="Blob_Column_List">
+    v_about
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from video
+    where v_id = #{v_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from video
+    where v_id = #{v_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="club.deepblue.twilight.pojo.Video">
+    <selectKey keyProperty="v_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into video (v_name, v_cover, v_url, 
+      v_about)
+    values (#{v_name,jdbcType=VARCHAR}, #{v_cover,jdbcType=CHAR}, #{v_url,jdbcType=VARCHAR}, 
+      #{v_about,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="club.deepblue.twilight.pojo.Video">
+    <selectKey keyProperty="v_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into video
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="v_name != null">
+        v_name,
+      </if>
+      <if test="v_cover != null">
+        v_cover,
+      </if>
+      <if test="v_url != null">
+        v_url,
+      </if>
+      <if test="v_about != null">
+        v_about,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="v_name != null">
+        #{v_name,jdbcType=VARCHAR},
+      </if>
+      <if test="v_cover != null">
+        #{v_cover,jdbcType=CHAR},
+      </if>
+      <if test="v_url != null">
+        #{v_url,jdbcType=VARCHAR},
+      </if>
+      <if test="v_about != null">
+        #{v_about,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="club.deepblue.twilight.pojo.Video">
+    update video
+    <set>
+      <if test="v_name != null">
+        v_name = #{v_name,jdbcType=VARCHAR},
+      </if>
+      <if test="v_cover != null">
+        v_cover = #{v_cover,jdbcType=CHAR},
+      </if>
+      <if test="v_url != null">
+        v_url = #{v_url,jdbcType=VARCHAR},
+      </if>
+      <if test="v_about != null">
+        v_about = #{v_about,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where v_id = #{v_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="club.deepblue.twilight.pojo.Video">
+    update video
+    set v_name = #{v_name,jdbcType=VARCHAR},
+      v_cover = #{v_cover,jdbcType=CHAR},
+      v_url = #{v_url,jdbcType=VARCHAR},
+      v_about = #{v_about,jdbcType=LONGVARCHAR}
+    where v_id = #{v_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="club.deepblue.twilight.pojo.Video">
+    update video
+    set v_name = #{v_name,jdbcType=VARCHAR},
+      v_cover = #{v_cover,jdbcType=CHAR},
+      v_url = #{v_url,jdbcType=VARCHAR}
+    where v_id = #{v_id,jdbcType=INTEGER}
+  </update>
+</mapper>

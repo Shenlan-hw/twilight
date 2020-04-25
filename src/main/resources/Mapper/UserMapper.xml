@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club.deepblue.twilight.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="club.deepblue.twilight.pojo.User">
+    <id column="u_id" jdbcType="INTEGER" property="u_id" />
+    <result column="u_openid" jdbcType="CHAR" property="u_openid" />
+    <result column="u_nickname" jdbcType="VARCHAR" property="u_nickname" />
+    <result column="u_avatar_url" jdbcType="VARCHAR" property="u_avatar_url" />
+    <result column="u_gender" jdbcType="TINYINT" property="u_gender" />
+    <result column="u_mobile" jdbcType="CHAR" property="u_mobile" />
+    <result column="u_region" jdbcType="VARCHAR" property="u_region" />
+    <result column="u_introduction" jdbcType="VARCHAR" property="u_introduction" />
+    <result column="u_power" jdbcType="TINYINT" property="u_power" />
+    <result column="u_created_time" jdbcType="TIMESTAMP" property="u_created_time" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    u_id, u_openid, u_nickname, u_avatar_url, u_gender, u_mobile, u_region, u_introduction,
+    u_power, u_created_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_info
+    where u_id = #{u_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectOtherByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    u_id, u_nickname, u_avatar_url, u_gender, u_mobile, u_region, u_introduction
+    from user_info
+    where u_id = #{u_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_info
+    where u_id = #{u_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="club.deepblue.twilight.pojo.User">
+    <selectKey keyProperty="u_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_info (u_openid, u_nickname, u_avatar_url,
+      u_gender, u_mobile, u_region,
+      u_introduction, u_power, u_created_time
+      )
+    values (#{u_openid,jdbcType=CHAR}, #{u_nickname,jdbcType=VARCHAR}, #{u_avatar_url,jdbcType=VARCHAR},
+      #{u_gender,jdbcType=TINYINT}, #{u_mobile,jdbcType=CHAR}, #{u_region,jdbcType=VARCHAR},
+      #{u_introduction,jdbcType=VARCHAR}, #{u_power,jdbcType=TINYINT}, #{u_created_time,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="club.deepblue.twilight.pojo.User">
+    <selectKey keyProperty="u_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="u_openid != null">
+        u_openid,
+      </if>
+      <if test="u_nickname != null">
+        u_nickname,
+      </if>
+      <if test="u_avatar_url != null">
+        u_avatar_url,
+      </if>
+      <if test="u_gender != null">
+        u_gender,
+      </if>
+      <if test="u_mobile != null">
+        u_mobile,
+      </if>
+      <if test="u_region != null">
+        u_region,
+      </if>
+      <if test="u_introduction != null">
+        u_introduction,
+      </if>
+      <if test="u_power != null">
+        u_power,
+      </if>
+      <if test="u_created_time != null">
+        u_created_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="u_openid != null">
+        #{u_openid,jdbcType=CHAR},
+      </if>
+      <if test="u_nickname != null">
+        #{u_nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="u_avatar_url != null">
+        #{u_avatar_url,jdbcType=VARCHAR},
+      </if>
+      <if test="u_gender != null">
+        #{u_gender,jdbcType=TINYINT},
+      </if>
+      <if test="u_mobile != null">
+        #{u_mobile,jdbcType=CHAR},
+      </if>
+      <if test="u_region != null">
+        #{u_region,jdbcType=VARCHAR},
+      </if>
+      <if test="u_introduction != null">
+        #{u_introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="u_power != null">
+        #{u_power,jdbcType=TINYINT},
+      </if>
+      <if test="u_created_time != null">
+        #{u_created_time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="club.deepblue.twilight.pojo.User">
+    update user_info
+    <set>
+      <if test="u_openid != null">
+        u_openid = #{u_openid,jdbcType=CHAR},
+      </if>
+      <if test="u_nickname != null">
+        u_nickname = #{u_nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="u_avatar_url != null">
+        u_avatar_url = #{u_avatar_url,jdbcType=VARCHAR},
+      </if>
+      <if test="u_gender != null">
+        u_gender = #{u_gender,jdbcType=TINYINT},
+      </if>
+      <if test="u_mobile != null">
+        u_mobile = #{u_mobile,jdbcType=CHAR},
+      </if>
+      <if test="u_region != null">
+        u_region = #{u_region,jdbcType=VARCHAR},
+      </if>
+      <if test="u_introduction != null">
+        u_introduction = #{u_introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="u_power != null">
+        u_power = #{u_power,jdbcType=TINYINT},
+      </if>
+      <if test="u_created_time != null">
+        u_created_time = #{u_created_time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where u_id = #{u_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="club.deepblue.twilight.pojo.User">
+    update user_info
+    set u_openid = #{u_openid,jdbcType=CHAR},
+      u_nickname = #{u_nickname,jdbcType=VARCHAR},
+      u_avatar_url = #{u_avatar_url,jdbcType=VARCHAR},
+      u_gender = #{u_gender,jdbcType=TINYINT},
+      u_mobile = #{u_mobile,jdbcType=CHAR},
+      u_region = #{u_region,jdbcType=VARCHAR},
+      u_introduction = #{u_introduction,jdbcType=VARCHAR},
+      u_power = #{u_power,jdbcType=TINYINT},
+      u_created_time = #{u_created_time,jdbcType=TIMESTAMP}
+    where u_id = #{u_id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByOpenId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from user_info
+    where u_openid = #{u_openid,jdbcType=CHAR}
+  </select>
+  <select id="likeByContent" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    u_id, u_nickname, u_avatar_url, u_gender, u_introduction
+    from user_info
+    where u_openid like concat('%',#{content,jdbcType=CHAR},'%') or u_nickname like concat('%',#{content,jdbcType=CHAR},'%')  or u_id = #{content,jdbcType=CHAR} or u_mobile  = #{content,jdbcType=CHAR}
+  </select>
+</mapper>
