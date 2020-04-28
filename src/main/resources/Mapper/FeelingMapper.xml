@@ -20,7 +20,6 @@
     delete from feeling
     where f_id = #{f_id,jdbcType=INTEGER}
   </delete>
-
   <insert id="insert" parameterType="club.deepblue.twilight.pojo.Feeling">
     <selectKey keyProperty="f_id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
@@ -80,14 +79,17 @@
       f_time = #{f_time,jdbcType=TIMESTAMP}
     where f_id = #{f_id,jdbcType=INTEGER}
   </update>
+
   <delete id="deleteByObject" parameterType="club.deepblue.twilight.pojo.Feeling">
-    delete from feeling
-    where u_id = #{u_id,jdbcType=INTEGER} and is_f_id=#{is_f_id,jdbcType=INTEGER}
-  </delete>
+  delete from feeling
+  where u_id = #{u_id,jdbcType=INTEGER} and is_f_id=#{is_f_id,jdbcType=INTEGER}
+</delete>
+
   <select id="selectByObject" parameterType="club.deepblue.twilight.pojo.Feeling" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from feeling
     where u_id = #{u_id,jdbcType=INTEGER} and is_f_id=#{is_f_id,jdbcType=INTEGER}
   </select>
+
 </mapper>

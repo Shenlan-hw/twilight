@@ -5,19 +5,21 @@
     <id column="v_id" jdbcType="INTEGER" property="v_id" />
     <result column="v_name" jdbcType="VARCHAR" property="v_name" />
     <result column="v_cover" jdbcType="CHAR" property="v_cover" />
+    <result column="v_length" jdbcType="INTEGER" property="v_length" />
+    <result column="v_hot" jdbcType="INTEGER" property="v_hot" />
     <result column="v_url" jdbcType="VARCHAR" property="v_url" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="club.deepblue.twilight.pojo.Video">
     <result column="v_about" jdbcType="LONGVARCHAR" property="v_about" />
   </resultMap>
   <sql id="Base_Column_List">
-    v_id, v_name, v_cover, v_url
+    v_id, v_name, v_cover, v_length, v_hot, v_url
   </sql>
   <sql id="Blob_Column_List">
     v_about
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -32,10 +34,12 @@
     <selectKey keyProperty="v_id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into video (v_name, v_cover, v_url, 
-      v_about)
-    values (#{v_name,jdbcType=VARCHAR}, #{v_cover,jdbcType=CHAR}, #{v_url,jdbcType=VARCHAR}, 
-      #{v_about,jdbcType=LONGVARCHAR})
+    insert into video (v_name, v_cover, v_length,
+      v_hot, v_url, v_about
+      )
+    values (#{v_name,jdbcType=VARCHAR}, #{v_cover,jdbcType=CHAR}, #{v_length,jdbcType=INTEGER},
+      #{v_hot,jdbcType=INTEGER}, #{v_url,jdbcType=VARCHAR}, #{v_about,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="club.deepblue.twilight.pojo.Video">
     <selectKey keyProperty="v_id" order="AFTER" resultType="java.lang.Integer">
@@ -48,6 +52,12 @@
       </if>
       <if test="v_cover != null">
         v_cover,
+      </if>
+      <if test="v_length != null">
+        v_length,
+      </if>
+      <if test="v_hot != null">
+        v_hot,
       </if>
       <if test="v_url != null">
         v_url,
@@ -62,6 +72,12 @@
       </if>
       <if test="v_cover != null">
         #{v_cover,jdbcType=CHAR},
+      </if>
+      <if test="v_length != null">
+        #{v_length,jdbcType=INTEGER},
+      </if>
+      <if test="v_hot != null">
+        #{v_hot,jdbcType=INTEGER},
       </if>
       <if test="v_url != null">
         #{v_url,jdbcType=VARCHAR},
@@ -80,6 +96,12 @@
       <if test="v_cover != null">
         v_cover = #{v_cover,jdbcType=CHAR},
       </if>
+      <if test="v_length != null">
+        v_length = #{v_length,jdbcType=INTEGER},
+      </if>
+      <if test="v_hot != null">
+        v_hot = #{v_hot,jdbcType=INTEGER},
+      </if>
       <if test="v_url != null">
         v_url = #{v_url,jdbcType=VARCHAR},
       </if>
@@ -93,6 +115,8 @@
     update video
     set v_name = #{v_name,jdbcType=VARCHAR},
       v_cover = #{v_cover,jdbcType=CHAR},
+      v_length = #{v_length,jdbcType=INTEGER},
+      v_hot = #{v_hot,jdbcType=INTEGER},
       v_url = #{v_url,jdbcType=VARCHAR},
       v_about = #{v_about,jdbcType=LONGVARCHAR}
     where v_id = #{v_id,jdbcType=INTEGER}
@@ -101,7 +125,25 @@
     update video
     set v_name = #{v_name,jdbcType=VARCHAR},
       v_cover = #{v_cover,jdbcType=CHAR},
+      v_length = #{v_length,jdbcType=INTEGER},
+      v_hot = #{v_hot,jdbcType=INTEGER},
       v_url = #{v_url,jdbcType=VARCHAR}
     where v_id = #{v_id,jdbcType=INTEGER}
   </update>
+  <select id="selectAll" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from video
+  </select>
+
+  <select id="selectByContent" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from video
+    where v_name like concat('%',#{content,jdbcType=CHAR},'%') or v_about like concat('%',#{content,jdbcType=CHAR},'%')
+  </select>
 </mapper>

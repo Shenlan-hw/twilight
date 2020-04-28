@@ -19,5 +19,5 @@ public interface MessageMapper {
 
     int updateByPrimaryKey(Message record);
 
-  List<Message> selectByUIDAndReID(Integer u_id, Integer re_u_id);
+    List<Message> selectByUIDAndReID(Integer u_id, Integer re_u_id);
 }

@@ -19,7 +19,7 @@ public interface UserMapper {
 
     User selectByOpenId(String openid);
 
-    List<User> likeByContent(String content);
+  List<User> likeByContent(String content);
 
-    User selectOtherByPrimaryKey(Integer u_id);
+  User selectOtherByPrimaryKey(Integer uid);
 }

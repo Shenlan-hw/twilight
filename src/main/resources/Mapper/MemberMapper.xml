@@ -2,6 +2,56 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="club.deepblue.twilight.mapper.MemberMapper">
   <resultMap id="BaseResultMap" type="club.deepblue.twilight.pojo.Member">
+    <result column="ml_id" jdbcType="INTEGER" property="ml_id" />
+    <result column="ci_id" jdbcType="INTEGER" property="ci_id" />
+    <result column="u_id" jdbcType="INTEGER" property="u_id" />
+    <result column="u_nickname" jdbcType="VARCHAR" property="u_nickname" />
+    <result column="u_avatar_url" jdbcType="VARCHAR" property="u_avatar_url" />
+  </resultMap>
+  <insert id="insert" parameterType="club.deepblue.twilight.pojo.Member">
+    insert into member_info (ml_id, ci_id, u_id,
+      u_nickname, u_avatar_url)
+    values (#{ml_id,jdbcType=INTEGER}, #{ci_id,jdbcType=INTEGER}, #{u_id,jdbcType=INTEGER},
+      #{u_nickname,jdbcType=VARCHAR}, #{u_avatar_url,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="club.deepblue.twilight.pojo.Member">
+    insert into member_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ml_id != null">
+        ml_id,
+      </if>
+      <if test="ci_id != null">
+        ci_id,
+      </if>
+      <if test="u_id != null">
+        u_id,
+      </if>
+      <if test="u_nickname != null">
+        u_nickname,
+      </if>
+      <if test="u_avatar_url != null">
+        u_avatar_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ml_id != null">
+        #{ml_id,jdbcType=INTEGER},
+      </if>
+      <if test="ci_id != null">
+        #{ci_id,jdbcType=INTEGER},
+      </if>
+      <if test="u_id != null">
+        #{u_id,jdbcType=INTEGER},
+      </if>
+      <if test="u_nickname != null">
+        #{u_nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="u_avatar_url != null">
+        #{u_avatar_url,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="club.deepblue.twilight.pojo.Member">
     <id column="ml_id" jdbcType="INTEGER" property="ml_id" />
     <result column="ci_id" jdbcType="INTEGER" property="ci_id" />
     <result column="u_id" jdbcType="INTEGER" property="u_id" />
@@ -10,7 +60,7 @@
     ml_id, ci_id, u_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from member
     where ml_id = #{ml_id,jdbcType=INTEGER}
@@ -66,4 +116,16 @@
       u_id = #{u_id,jdbcType=INTEGER}
     where ml_id = #{ml_id,jdbcType=INTEGER}
   </update>
+  <select id="selectByCiID" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from member
+    where ci_id = #{ci_id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByObject" parameterType="java.lang.Integer">
+  delete from member
+  where ci_id = #{ci_id,jdbcType=INTEGER} and u_id = #{u_id,jdbcType=INTEGER}
+</delete>
+
 </mapper>

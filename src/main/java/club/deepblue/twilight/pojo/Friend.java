@@ -1,8 +1,6 @@
 package club.deepblue.twilight.pojo;
 
-import java.io.Serializable;
-
-public class Friend implements Serializable {
+public class Friend {
     private Integer u_id;
 
     private Integer f_id;

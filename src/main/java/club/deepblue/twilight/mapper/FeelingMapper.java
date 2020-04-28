@@ -15,7 +15,7 @@ public interface FeelingMapper {
 
     int updateByPrimaryKey(Feeling record);
 
-  int deleteByObject(Feeling feeling);
+    int deleteByObject(Feeling feeling);
 
   Feeling selectByObject(Feeling feeling);
 }

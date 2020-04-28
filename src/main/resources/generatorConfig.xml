@@ -105,12 +105,30 @@
     <property name="useActualColumnNames" value="true"/>
     <generatedKey column="f_id" sqlStatement="MySQL" identity="true" />
   </table>
-  <table schema="twilight" tableName="friendlist" domainObjectName="Friend" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+  <table schema="twilight" tableName="friend_info" domainObjectName="Friend" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
          enableSelectByExample="false" selectByExampleQueryId="false">
     <property name="useActualColumnNames" value="true"/>
     <generatedKey column="f_id" sqlStatement="MySQL" identity="true" />
-  </table>
 
+  </table>
+  <table schema="twilight" tableName="friend_info" domainObjectName="Friend" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+         enableSelectByExample="false" selectByExampleQueryId="false">
+    <property name="useActualColumnNames" value="true"/>
+    <generatedKey column="f_id" sqlStatement="MySQL" identity="true" />
+
+  </table>
+  <table schema="twilight" tableName="member_info" domainObjectName="Member" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+         enableSelectByExample="false" selectByExampleQueryId="false">
+    <property name="useActualColumnNames" value="true"/>
+    <generatedKey column="f_id" sqlStatement="MySQL" identity="true" />
+
+  </table>
+  <table schema="twilight" tableName="teack_info" domainObjectName="Teack" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+         enableSelectByExample="false" selectByExampleQueryId="false">
+    <property name="useActualColumnNames" value="true"/>
+    <generatedKey column="f_id" sqlStatement="MySQL" identity="true" />
+
+  </table>
 </context>
 
 </generatorConfiguration>

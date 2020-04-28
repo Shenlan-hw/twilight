@@ -5,7 +5,6 @@ import club.deepblue.twilight.pojo.User;
 import club.deepblue.twilight.service.UserService;
 import club.deepblue.twilight.utils.RequestUtil;
 import cn.hutool.crypto.digest.DigestUtil;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -276,7 +274,7 @@ public class UserController {
     String md5File = DigestUtil.md5Hex(rsp.getBody());
     String fileName = md5File + "." + mediaType.getSubtype();
     try {
-      Files.write(Paths.get(uploadedFilePathPrefix + "images" + fileName), rsp.getBody());
+      Files.write(Paths.get(uploadedFilePathPrefix + "images/" + fileName), rsp.getBody());
       return fileName;
     } catch (IOException e) {
       e.printStackTrace();

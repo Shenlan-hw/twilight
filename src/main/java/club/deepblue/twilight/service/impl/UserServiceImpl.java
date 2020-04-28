@@ -16,33 +16,32 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
   @Resource
-  UserMapper userMapper;
+  private UserMapper userMapper;
 
   @Override
-  @CacheEvict(key = "#user.u_openid")
+  @CacheEvict(key = "'uid-'+#user.u_id")
   public Integer setUserByObject(User user) {
     return userMapper.insert(user);
   }
 
   @Override
-  @Cacheable(key = "#openid")
   public User getUserByOpenID(String openid) {
     return userMapper.selectByOpenId(openid);
   }
 
   @Override
-  @CacheEvict(key = "#user.u_openid")
+  @CacheEvict(key = "'uid-'+#user.u_id")
   public int editUserByObject(User user) {
     return userMapper.updateByPrimaryKeySelective(user);
   }
 
   @Override
-  @Cacheable(key = "#content")
   public List<User> getUsersByLikeContent(String content) {
     return userMapper.likeByContent(content);
   }
 
   @Override
+  @Cacheable(key = "'uid-'+#uid", unless = "#result == null")
   public User getUserByUID(Integer uid) {
     return userMapper.selectOtherByPrimaryKey(uid);
   }

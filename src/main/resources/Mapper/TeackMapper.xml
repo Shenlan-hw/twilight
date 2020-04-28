@@ -2,6 +2,100 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="club.deepblue.twilight.mapper.TeackMapper">
   <resultMap id="BaseResultMap" type="club.deepblue.twilight.pojo.Teack">
+    <result column="t_id" jdbcType="INTEGER" property="t_id" />
+    <result column="u_id" jdbcType="INTEGER" property="u_id" />
+    <result column="v_id" jdbcType="INTEGER" property="v_id" />
+    <result column="t_time" jdbcType="TIMESTAMP" property="t_time" />
+    <result column="u_nickname" jdbcType="VARCHAR" property="u_nickname" />
+    <result column="u_avatar_url" jdbcType="VARCHAR" property="u_avatar_url" />
+    <result column="u_gender" jdbcType="TINYINT" property="u_gender" />
+    <result column="v_name" jdbcType="VARCHAR" property="v_name" />
+    <result column="v_cover" jdbcType="CHAR" property="v_cover" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="club.deepblue.twilight.pojo.Teack">
+    <result column="t_content" jdbcType="LONGVARCHAR" property="t_content" />
+  </resultMap>
+  <sql id="Blob_Column_List">
+    t_content
+  </sql>
+  <insert id="insert" parameterType="club.deepblue.twilight.pojo.Teack">
+    insert into teack_info (t_id, u_id, v_id, 
+      t_time, u_nickname, u_avatar_url, 
+      u_gender, v_name, v_cover, 
+      t_content)
+    values (#{t_id,jdbcType=INTEGER}, #{u_id,jdbcType=INTEGER}, #{v_id,jdbcType=INTEGER}, 
+      #{t_time,jdbcType=TIMESTAMP}, #{u_nickname,jdbcType=VARCHAR}, #{u_avatar_url,jdbcType=VARCHAR}, 
+      #{u_gender,jdbcType=TINYINT}, #{v_name,jdbcType=VARCHAR}, #{v_cover,jdbcType=CHAR}, 
+      #{t_content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="club.deepblue.twilight.pojo.Teack">
+    insert into teack_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="t_id != null">
+        t_id,
+      </if>
+      <if test="u_id != null">
+        u_id,
+      </if>
+      <if test="v_id != null">
+        v_id,
+      </if>
+      <if test="t_time != null">
+        t_time,
+      </if>
+      <if test="u_nickname != null">
+        u_nickname,
+      </if>
+      <if test="u_avatar_url != null">
+        u_avatar_url,
+      </if>
+      <if test="u_gender != null">
+        u_gender,
+      </if>
+      <if test="v_name != null">
+        v_name,
+      </if>
+      <if test="v_cover != null">
+        v_cover,
+      </if>
+      <if test="t_content != null">
+        t_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="t_id != null">
+        #{t_id,jdbcType=INTEGER},
+      </if>
+      <if test="u_id != null">
+        #{u_id,jdbcType=INTEGER},
+      </if>
+      <if test="v_id != null">
+        #{v_id,jdbcType=INTEGER},
+      </if>
+      <if test="t_time != null">
+        #{t_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="u_nickname != null">
+        #{u_nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="u_avatar_url != null">
+        #{u_avatar_url,jdbcType=VARCHAR},
+      </if>
+      <if test="u_gender != null">
+        #{u_gender,jdbcType=TINYINT},
+      </if>
+      <if test="v_name != null">
+        #{v_name,jdbcType=VARCHAR},
+      </if>
+      <if test="v_cover != null">
+        #{v_cover,jdbcType=CHAR},
+      </if>
+      <if test="t_content != null">
+        #{t_content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="club.deepblue.twilight.pojo.Teack">
     <id column="t_id" jdbcType="INTEGER" property="t_id" />
     <result column="u_id" jdbcType="INTEGER" property="u_id" />
     <result column="v_id" jdbcType="INTEGER" property="v_id" />

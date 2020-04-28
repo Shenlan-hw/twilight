@@ -19,6 +19,9 @@ public class test {
 
   @Test
   public void test()  {
+    Integer i=12;
+    Integer j= i +2;
+    System.out.println(j);
   }
 
   public String getFile(String url)  {

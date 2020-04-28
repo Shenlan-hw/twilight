@@ -12,28 +12,7 @@ public class Feeling implements Serializable {
 
     private Date f_time;
 
-  public Feeling( Integer u_id, Integer is_f_id, Date f_time) {
-    this.u_id = u_id;
-    this.is_f_id = is_f_id;
-    this.f_time = f_time;
-  }
-
-  public Feeling(Integer f_id, Integer u_id, Integer is_f_id, Date f_time) {
-    this.f_id = f_id;
-    this.u_id = u_id;
-    this.is_f_id = is_f_id;
-    this.f_time = f_time;
-  }
-
-  public Feeling(Integer u_id, Integer is_f_id) {
-    this.u_id = u_id;
-    this.is_f_id = is_f_id;
-  }
-
-  public Feeling() {
-  }
-
-  public Integer getF_id() {
+    public Integer getF_id() {
         return f_id;
     }
 

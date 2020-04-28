@@ -1,11 +1,8 @@
 package club.deepblue.twilight.pojo;
 
-import com.fasterxml.jackson.databind.deser.Deserializers;
-
-import java.io.Serializable;
 import java.util.Date;
 
-public class User implements Serializable {
+public class User {
     private Integer u_id;
 
     private String u_openid;

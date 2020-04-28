@@ -23,6 +23,7 @@ public class SessionInterceptor implements HandlerInterceptor {
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
     throws Exception {
+    System.out.println("请求进入:"+request);
     String session = null;
     session = RequestUtil.getSession(request);
 

@@ -1,9 +1,8 @@
 package club.deepblue.twilight.service;
 
 import club.deepblue.twilight.pojo.Friend;
-
-import java.util.List;
+import com.github.pagehelper.PageInfo;
 
 public interface FriendService {
-  public List<Friend> getFriendsByUID(Integer u_id);
+  public PageInfo<Friend> getFriendsByUID(Integer pageIndex, Integer pageSize, Integer u_id);
 }

@@ -23,12 +23,6 @@
     from user_info
     where u_id = #{u_id,jdbcType=INTEGER}
   </select>
-  <select id="selectOtherByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
-    u_id, u_nickname, u_avatar_url, u_gender, u_mobile, u_region, u_introduction
-    from user_info
-    where u_id = #{u_id,jdbcType=INTEGER}
-  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user_info
     where u_id = #{u_id,jdbcType=INTEGER}
@@ -162,10 +156,19 @@
     from user_info
     where u_openid = #{u_openid,jdbcType=CHAR}
   </select>
+
   <select id="likeByContent" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select
-    u_id, u_nickname, u_avatar_url, u_gender, u_introduction
-    from user_info
-    where u_openid like concat('%',#{content,jdbcType=CHAR},'%') or u_nickname like concat('%',#{content,jdbcType=CHAR},'%')  or u_id = #{content,jdbcType=CHAR} or u_mobile  = #{content,jdbcType=CHAR}
-  </select>
+  select
+  u_id, u_nickname, u_avatar_url, u_gender, u_introduction
+  from user_info
+  where u_openid like concat('%',#{content,jdbcType=CHAR},'%') or u_nickname like concat('%',#{content,jdbcType=CHAR},'%')  or u_id = #{content,jdbcType=CHAR} or u_mobile  = #{content,jdbcType=CHAR}
+</select>
+
+  <select id="selectOtherByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  select
+  u_id, u_nickname, u_avatar_url, u_gender, u_mobile, u_region, u_introduction
+  from user_info
+  where u_id = #{u_id,jdbcType=INTEGER}
+</select>
+
 </mapper>

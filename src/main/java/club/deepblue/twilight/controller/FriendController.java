@@ -4,6 +4,7 @@ import club.deepblue.twilight.pojo.Friend;
 import club.deepblue.twilight.service.FriendService;
 import club.deepblue.twilight.utils.RequestUtil;
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @RestController
 @RequestMapping("/friend")
@@ -21,20 +21,20 @@ public class FriendController {
   private RedisTemplate redisTemplate;
   @Autowired
   private FriendService friendService;
-
+  private static final Integer PAGE_SIZE = 20;
 
   @RequestMapping("/getFriends")
-  public JSONObject getFriends(HttpServletRequest httpServletRequest){
+  public JSONObject getFriends(HttpServletRequest httpServletRequest,Integer idx){
     String session = RequestUtil.getSession(httpServletRequest);
     ValueOperations valueOperations = redisTemplate.opsForValue();
     JSONObject userJSONObject= (JSONObject) valueOperations.get(session);
     JSONObject userInfoJSONObject=userJSONObject.getJSONObject("userInfo");
     Integer u_id=userInfoJSONObject.getInteger("u_id");
-    List<Friend> friends=friendService.getFriendsByUID(u_id);
+    PageInfo<Friend> friendPageInfo=friendService.getFriendsByUID(idx,PAGE_SIZE,u_id);
 
     JSONObject jsonObject=new JSONObject();
-    if(null != friends && !friends.isEmpty()){
-      jsonObject.put("friends",friends);
+    if(null != friendPageInfo ){
+      jsonObject.put("friendPageInfo",friendPageInfo);
       jsonObject.put("errcode",0);
       return jsonObject;
     }else {

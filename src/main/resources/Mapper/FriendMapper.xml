@@ -8,14 +8,11 @@
     <result column="u_avatar_url" jdbcType="VARCHAR" property="u_avatar_url" />
     <result column="u_introduction" jdbcType="VARCHAR" property="u_introduction" />
   </resultMap>
-  <sql id="Base_Column_List">
-    u_id, f_id, u_nickname, u_avatar_url, u_introduction
-  </sql>
   <insert id="insert" parameterType="club.deepblue.twilight.pojo.Friend">
     <selectKey keyProperty="f_id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into friendlist (u_id, u_nickname, u_avatar_url,
+    insert into friend_info (u_id, u_nickname, u_avatar_url,
       u_introduction)
     values (#{u_id,jdbcType=INTEGER}, #{u_nickname,jdbcType=VARCHAR}, #{u_avatar_url,jdbcType=VARCHAR},
       #{u_introduction,jdbcType=VARCHAR})
@@ -24,7 +21,7 @@
     <selectKey keyProperty="f_id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into friendlist
+    insert into friend_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="u_id != null">
         u_id,
@@ -54,10 +51,61 @@
       </if>
     </trim>
   </insert>
+  <resultMap id="BaseResultMap" type="club.deepblue.twilight.pojo.Friend">
+    <result column="u_id" jdbcType="INTEGER" property="u_id" />
+    <result column="f_id" jdbcType="INTEGER" property="f_id" />
+    <result column="u_nickname" jdbcType="VARCHAR" property="u_nickname" />
+    <result column="u_avatar_url" jdbcType="VARCHAR" property="u_avatar_url" />
+    <result column="u_introduction" jdbcType="VARCHAR" property="u_introduction" />
+  </resultMap>
+  <insert id="insert" parameterType="club.deepblue.twilight.pojo.Friend">
+    <selectKey keyProperty="f_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into friend_info (u_id, u_nickname, u_avatar_url,
+      u_introduction)
+    values (#{u_id,jdbcType=INTEGER}, #{u_nickname,jdbcType=VARCHAR}, #{u_avatar_url,jdbcType=VARCHAR},
+      #{u_introduction,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="club.deepblue.twilight.pojo.Friend">
+    <selectKey keyProperty="f_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into friend_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="u_id != null">
+        u_id,
+      </if>
+      <if test="u_nickname != null">
+        u_nickname,
+      </if>
+      <if test="u_avatar_url != null">
+        u_avatar_url,
+      </if>
+      <if test="u_introduction != null">
+        u_introduction,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="u_id != null">
+        #{u_id,jdbcType=INTEGER},
+      </if>
+      <if test="u_nickname != null">
+        #{u_nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="u_avatar_url != null">
+        #{u_avatar_url,jdbcType=VARCHAR},
+      </if>
+      <if test="u_introduction != null">
+        #{u_introduction,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
   <select id="selectByUID" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from friendlist
+    from friend_info
     where u_id = #{u_id,jdbcType=INTEGER}
   </select>
 </mapper>

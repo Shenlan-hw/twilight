@@ -30,7 +30,9 @@ public class FeelingController {
       JSONObject userJSONObject = (JSONObject) valueOperations.get(session);
       JSONObject userInfoJSONObject = userJSONObject.getJSONObject("userInfo");
       Integer uid = userInfoJSONObject.getInteger("u_id");
-      Feeling feeling = new Feeling(uid, fid);
+      Feeling feeling = new Feeling();
+      feeling.setU_id(uid);
+      feeling.setF_id(fid);
       Feeling isfeeling = feelingService.getFeelingByObject(feeling);
       if (!(null == isfeeling)) {
         jsonObject.put("errcode", 0);
@@ -55,8 +57,10 @@ public class FeelingController {
       JSONObject userInfoJSONObject = userJSONObject.getJSONObject("userInfo");
       Integer uid = userInfoJSONObject.getInteger("u_id");
       Date date = new Date();
-      Feeling feeling = new Feeling(uid, fid, date);
-
+      Feeling feeling = new Feeling();
+      feeling.setU_id(uid);
+      feeling.setF_id(fid);
+      feeling.setF_time(date);
       int fs = feelingService.setFeelingByObject(feeling);
       if (fs > 0) {
         jsonObject.put("errcode", 0);
@@ -79,8 +83,9 @@ public class FeelingController {
       JSONObject userInfoJSONObject = userJSONObject.getJSONObject("userInfo");
       Integer uid = userInfoJSONObject.getInteger("u_id");
 
-      Feeling feeling = new Feeling(uid, fid);
-
+      Feeling feeling = new Feeling();
+      feeling.setU_id(uid);
+      feeling.setF_id(fid);
       int fs = feelingService.deleteFeelingByObject(feeling);
       if (fs > 0) {
         jsonObject.put("errcode", 0);
